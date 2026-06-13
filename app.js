@@ -63,20 +63,21 @@ const elements = {
 };
 
 // --- INITIALIZATION ---
+//  수정 후: 순서 변경
 document.addEventListener('DOMContentLoaded', () => {
-  setupEventListeners();
-  setDefaultDate();
-
-  loadData();
-  refreshUI();
+  loadData();            // 1. 저장된 데이터를 LocalStorage에서 먼저 로드 (가장 중요!)
+  setDefaultDate();      // 2. 기본 날짜 세팅
+  setupEventListeners(); // 3. 그 다음 이벤트 리스너 연결
+  refreshUI();           // 4. 마지막으로 화면 그리기
 });
 
-// Load the file path display
-
-
-function getFileName(filePath) {
-  if (!filePath) return '';
-  return filePath.split(/[/\\]/).pop();
+//  수정 후
+// 웹 브라우저 저장소 안내 문구 표시
+function loadCsvPath() {
+  if (elements.csvPath) {
+    elements.csvPath.textContent = "웹 브라우저 LocalStorage 사용 중";
+    elements.csvPath.title = "GitHub Pages 배포 환경";
+  }
 }
 
 // Set default date picker to today in Local Timezone
